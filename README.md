@@ -1,7 +1,5 @@
 # Skinet
 
-## Overview
-
 Skinet E-Commerce is an online shopping platform that allows users to browse and purchase products. This project is built using modern web technologies and follows best practices for scalability and maintainability.
 
 ## Features
