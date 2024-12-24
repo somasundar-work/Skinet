@@ -4,9 +4,9 @@
       "type": "coreclr",
       "request": "launch",
       "name": "Launch Skinet.API",
-      "program": "${workspaceFolder}/src/Skinet.API/bin/Debug/net8.0/Skinet.API.dll",
+      "program": "${workspaceFolder}/Skinet.API/bin/Debug/net8.0/Skinet.API.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/Skinet.API",
+      "cwd": "${workspaceFolder}/Skinet.API",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",
