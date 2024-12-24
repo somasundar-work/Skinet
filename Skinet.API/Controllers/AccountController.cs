@@ -1,8 +1,6 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Skinet.Application.Dtos;
 using Skinet.Application.Extensions;
 using Skinet.Entities.Identity;
@@ -50,7 +48,7 @@ namespace Skinet.API.Controllers
             if (User.Identity?.IsAuthenticated == false)
                 return NoContent();
 
-            var user = await signInManager.UserManager.GetUserByEmail(User);
+            var user = await signInManager.UserManager.GetUserByEmailWithAddress(User);
             if (user == null)
                 return Unauthorized();
             return Ok(
@@ -59,6 +57,7 @@ namespace Skinet.API.Controllers
                     user.FirstName,
                     user.LastName,
                     user.Email,
+                    Address = user.Address?.ToDto(),
                 }
             );
         }
@@ -67,6 +66,27 @@ namespace Skinet.API.Controllers
         public ActionResult GetAuthState()
         {
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });
+        }
+
+        [Authorize]
+        [HttpPost("address")]
+        public async Task<ActionResult<AddressDto>> CreateOrUpdateAddress(
+            [FromBody] AddressDto addressDto
+        )
+        {
+            var user = await signInManager.UserManager.GetUserByEmailWithAddress(User);
+            if (user.Address == null)
+            {
+                user.Address = addressDto.ToEntity();
+            }
+            else
+            {
+                user.Address.UpdateFromDto(addressDto);
+            }
+            var result = await signInManager.UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return BadRequest("problem updating user address");
+            return Ok(user.Address.ToDto());
         }
     }
 }
