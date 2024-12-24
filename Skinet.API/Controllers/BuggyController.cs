@@ -5,40 +5,43 @@ using Skinet.Application.Dtos;
 
 namespace Skinet.API.Controllers;
 
-[AllowAnonymous]
 public class BuggyController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet("unauthorized")]
     public IActionResult GetUnauthorized()
     {
         return Unauthorized();
     }
 
+    [AllowAnonymous]
     [HttpGet("bad-request")]
     public IActionResult GetBadRequest()
     {
         return BadRequest();
     }
 
+    [AllowAnonymous]
     [HttpGet("not-found")]
     public IActionResult GetNotFound()
     {
         return NotFound();
     }
 
+    [AllowAnonymous]
     [HttpGet("server-error")]
     public IActionResult GetServerError()
     {
         throw new Exception("This is a server error");
     }
 
+    [AllowAnonymous]
     [HttpPost("validation-error")]
     public IActionResult GetValidationError(CreateProductDto product)
     {
         return Ok(product);
     }
 
-    [Authorize]
     [HttpGet("secrets")]
     public IActionResult GetSecrets()
     {

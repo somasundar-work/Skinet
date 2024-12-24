@@ -6,7 +6,6 @@ using Skinet.Entities;
 
 namespace Skinet.API.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class BaseApiController : ControllerBase

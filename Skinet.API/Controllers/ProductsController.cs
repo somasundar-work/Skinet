@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.RequestHelpers;
 using Skinet.Application.Interfaces;
 using Skinet.Application.Specifications;
 using Skinet.Entities.Product;
@@ -26,6 +26,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return product;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
@@ -39,6 +40,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return BadRequest("Problem creating product");
     }
 
+    [Authorize]
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateProduct(int id, Product product)
     {
@@ -55,6 +57,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return BadRequest("Problem updating the product");
     }
 
+    [Authorize]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
