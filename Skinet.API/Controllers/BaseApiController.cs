@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.RequestHelpers;
 using Skinet.Application.Interfaces;
@@ -5,6 +6,7 @@ using Skinet.Entities;
 
 namespace Skinet.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class BaseApiController : ControllerBase

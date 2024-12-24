@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Application.Dtos;
@@ -5,6 +6,7 @@ using Skinet.Entities.Identity;
 
 namespace Skinet.API.Controllers
 {
+    [AllowAnonymous]
     public class AccountController(SignInManager<AppUser> signInManager) : BaseApiController
     {
         // RegisterDto
