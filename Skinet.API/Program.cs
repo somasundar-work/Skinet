@@ -1,6 +1,9 @@
 using Skinet.Application.Extensions;
 using Skinet.Application.Services;
+using Skinet.Data.Context;
 using Skinet.Data.Extensions;
+using Skinet.Entities.Identity;
+using Skinet.Entities.Product;
 using Skinet.Infra.Extensions;
 using StackExchange.Redis;
 
@@ -21,6 +24,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
     return ConnectionMultiplexer.Connect(configuration);
 });
 builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -48,6 +53,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGroup("api/identity").MapIdentityApi<AppUser>().WithTags("Identity"); // api/identity/login
 
 app.MigrateStore();
 

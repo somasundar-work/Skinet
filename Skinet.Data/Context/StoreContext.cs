@@ -1,10 +1,11 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Skinet.Entities.Product;
 
 namespace Skinet.Data.Context;
 
-public class StoreContext(DbContextOptions options) : DbContext(options)
+public class StoreContext(DbContextOptions options) : IdentityDbContext(options)
 {
     public DbSet<Product> Products { get; set; }
 
