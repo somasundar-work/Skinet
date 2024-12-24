@@ -1,0 +1,36 @@
+{
+  "files.exclude": {
+    "**/bin": true,
+    "**/node_modules": true,
+    "**/obj": true
+  },
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "files.autoSaveWhenNoErrors": true,
+  "files.autoSaveWorkspaceFilesOnly": true,
+  "files.watcherExclude": {
+    "**/bin": true,
+    "**/node_modules": true,
+    "**/obj": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.iconTheme": "material-icon-theme",
+  "[csharp]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+  },
+  "git.autofetch": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.cwd": "${workspaceFolder}\\src\\Skinet.API",
+  "terminal.integrated.env.windows": {
+    "PATH": "${env:USERPROFILE}\\AppData\\Roaming\\npm;${env:PATH}"
+  },
+  "editor.linkedEditing": true,
+  "scss.lint.unknownAtRules": "ignore",
+  "explorer.compactFolders": false,
+  "scm.compactFolders": false,
+  "notebook.compactView": false
+}

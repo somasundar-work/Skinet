@@ -1,0 +1,5 @@
+Uploads/
+**/App_Data/*.cs
+**/Bin/*
+**/Obj/*
+**/Migrations/*

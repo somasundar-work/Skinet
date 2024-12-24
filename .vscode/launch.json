@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "type": "coreclr",
+      "request": "launch",
+      "name": "Launch Skinet.API",
+      "program": "${workspaceFolder}/src/Skinet.API/bin/Debug/net8.0/Skinet.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/Skinet.API",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "preLaunchTask": "build"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "programPath",
+      "description": "Path to the DLL to debug"
+    }
+  ]
+}

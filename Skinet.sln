@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1027533F-91EF-4CA1-9E46-341976F68450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.API", "src\Skinet.API\Skinet.API.csproj", "{43186C6D-BCDF-4CF3-899A-2092225ABD26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Application", "src\Skinet.Application\Skinet.Application.csproj", "{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Data", "src\Skinet.Data\Skinet.Data.csproj", "{095112E0-F448-4DB4-AB2F-573F094BDC4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Entities", "src\Skinet.Entities\Skinet.Entities.csproj", "{25A60762-0F27-4E7E-9D41-A2DC6E49189A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Infra", "src\Skinet.Infra\Skinet.Infra.csproj", "{616D8EF6-55F6-4999-8630-3B2B490029CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{45704002-0B98-44AC-8047-8C78A5537966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Tests", "tests\Skinet.Tests\Skinet.Tests.csproj", "{261FC383-CDA9-44B2-A763-03D3B641DB58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43186C6D-BCDF-4CF3-899A-2092225ABD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43186C6D-BCDF-4CF3-899A-2092225ABD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43186C6D-BCDF-4CF3-899A-2092225ABD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43186C6D-BCDF-4CF3-899A-2092225ABD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095112E0-F448-4DB4-AB2F-573F094BDC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095112E0-F448-4DB4-AB2F-573F094BDC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095112E0-F448-4DB4-AB2F-573F094BDC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095112E0-F448-4DB4-AB2F-573F094BDC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A60762-0F27-4E7E-9D41-A2DC6E49189A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A60762-0F27-4E7E-9D41-A2DC6E49189A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A60762-0F27-4E7E-9D41-A2DC6E49189A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A60762-0F27-4E7E-9D41-A2DC6E49189A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616D8EF6-55F6-4999-8630-3B2B490029CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616D8EF6-55F6-4999-8630-3B2B490029CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616D8EF6-55F6-4999-8630-3B2B490029CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616D8EF6-55F6-4999-8630-3B2B490029CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261FC383-CDA9-44B2-A763-03D3B641DB58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261FC383-CDA9-44B2-A763-03D3B641DB58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261FC383-CDA9-44B2-A763-03D3B641DB58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261FC383-CDA9-44B2-A763-03D3B641DB58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{43186C6D-BCDF-4CF3-899A-2092225ABD26} = {1027533F-91EF-4CA1-9E46-341976F68450}
+		{F7AF4EFD-F73F-4546-9F42-753E0BA1F6A0} = {1027533F-91EF-4CA1-9E46-341976F68450}
+		{095112E0-F448-4DB4-AB2F-573F094BDC4C} = {1027533F-91EF-4CA1-9E46-341976F68450}
+		{25A60762-0F27-4E7E-9D41-A2DC6E49189A} = {1027533F-91EF-4CA1-9E46-341976F68450}
+		{616D8EF6-55F6-4999-8630-3B2B490029CD} = {1027533F-91EF-4CA1-9E46-341976F68450}
+		{261FC383-CDA9-44B2-A763-03D3B641DB58} = {45704002-0B98-44AC-8047-8C78A5537966}
+	EndGlobalSection
+EndGlobal
