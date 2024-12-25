@@ -13,7 +13,7 @@ namespace Skinet.API.Controllers
         IGenericRepository<DeliveryMethod> dmRepo
     ) : BaseApiController
     {
-        [HttpPost]
+        [HttpPost("{cartId}")]
         public async Task<ActionResult<ShoppingCart>> CreateOrUpdatePaymentIntent(string cartId)
         {
             var cart = await paymentService.CreateOrUpdatePaymentIntent(cartId);

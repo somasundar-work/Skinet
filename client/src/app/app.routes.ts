@@ -12,6 +12,7 @@ import { RegisterComponent } from './features/account/register/register.componen
 import { ProfileComponent } from './features/account/profile/profile.component';
 import { authGuard } from './core/guards/auth.guard';
 import { emptycartGuard } from './core/guards/emptycart.guard';
+import { OrdersComponent } from './features/account/orders/orders.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,11 @@ export const routes: Routes = [
   },
   { path: 'account/login', component: LoginComponent },
   { path: 'account/register', component: RegisterComponent },
+  {
+    path: 'account/orders',
+    component: OrdersComponent,
+    canActivate: [authGuard],
+  },
   {
     path: 'account/profile',
     component: ProfileComponent,
