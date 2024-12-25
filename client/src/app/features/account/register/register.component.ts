@@ -13,6 +13,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { TextInputComponent } from "../../../shared/components/text-input/text-input.component";
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
     MatButtonModule,
     MatCheckboxModule,
     MatError,
-  ],
+    TextInputComponent
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
