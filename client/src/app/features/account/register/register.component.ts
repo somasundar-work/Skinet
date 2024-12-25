@@ -13,21 +13,17 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { TextInputComponent } from "../../../shared/components/text-input/text-input.component";
+import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule,
     MatCardModule,
-    MatFormFieldModule,
-    MatLabel,
-    MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatError,
-    TextInputComponent
-],
+    TextInputComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
