@@ -51,7 +51,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
-app.MapGroup("api/identity").MapIdentityApi<AppUser>().WithTags("Identity"); // api/identity/login
+app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
 
 app.MigrateStore();
 
