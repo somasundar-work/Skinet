@@ -1,1 +1,84 @@
-<p>register works!</p>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+    <div class="mb-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          type="text"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          placeholder="Enter your first name"
+          required
+        />
+        @if(registerForm.get('firstName')?.hasError('required')) {
+        <mat-error> First name is required </mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="mb-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          type="text"
+          id="lastName"
+          name="lastName"
+          formControlName="lastName"
+          placeholder="Enter your last name"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="mb-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          id="email"
+          name="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="mb-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          required
+        />
+      </mat-form-field>
+    </div>
+    @if (validationErrors) {
+    <div class="bg-red-100 text-sm mt-2 p-4 gap-4 text-red-600">
+      <ul class="list-disc px-3">
+        @for (error of validationErrors; track $index) {
+        <li>
+          {{ error }}
+        </li>
+        }
+      </ul>
+    </div>
+    }
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="w-full mt-4"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+  </form>
+</div>

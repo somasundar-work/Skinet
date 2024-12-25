@@ -45,7 +45,13 @@
         Forgot Password?
       </a> -->
     </div>
-    <button mat-raised-button color="primary" type="submit" class="w-full mt-2">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="w-full mt-2"
+      [disabled]="!loginForm.valid"
+    >
       Login
     </button>
   </form>
