@@ -9,6 +9,7 @@ import { CartComponent } from './features/cart/cart.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { LoginComponent } from './features/account/login/login.component';
 import { RegisterComponent } from './features/account/register/register.component';
+import { ProfileComponent } from './features/account/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'account/login', component: LoginComponent },
   { path: 'account/register', component: RegisterComponent },
+  { path: 'account/profile', component: ProfileComponent },
   { path: 'error/not-found', component: NotFoundComponent },
   { path: 'error/server-error', component: ServerErrorComponent },
   { path: '**', redirectTo: 'error/not-found', pathMatch: 'full' },

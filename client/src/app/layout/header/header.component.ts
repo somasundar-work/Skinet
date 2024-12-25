@@ -7,6 +7,13 @@ import { BusyService } from '../../core/services/busy.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CartService } from '../../core/services/cart.service';
 import { AccountService } from '../../core/services/account.service';
+import {
+  MatMenuItem,
+  MatMenuModule,
+  MatMenuTrigger,
+} from '@angular/material/menu';
+import { MatDivider } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +24,11 @@ import { AccountService } from '../../core/services/account.service';
     RouterLink,
     RouterLinkActive,
     MatProgressBarModule,
+    MatMenuModule,
+    MatMenuTrigger,
+    MatDivider,
+    MatMenuItem,
+    MatTooltipModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
