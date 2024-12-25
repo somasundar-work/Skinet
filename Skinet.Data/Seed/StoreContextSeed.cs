@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Skinet.Data.Context;
+using Skinet.Entities.Delivery;
 using Skinet.Entities.Product;
 
 namespace Skinet.Data.Seed;
@@ -22,6 +23,21 @@ public class StoreContextSeed
                 foreach (var product in products)
                 {
                     storeContext.Products.Add(product);
+                }
+
+                await storeContext.SaveChangesAsync();
+            }
+        }
+
+        if (!storeContext.DeliveryMethods.Any())
+        {
+            var dmData = File.ReadAllText(Constants.ContextConstants.DeliveryMethodsJsonPath);
+            var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+            if (deliveryMethods != null)
+            {
+                foreach (var delivery in deliveryMethods)
+                {
+                    storeContext.DeliveryMethods.Add(delivery);
                 }
 
                 await storeContext.SaveChangesAsync();
