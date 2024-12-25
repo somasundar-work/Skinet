@@ -34,7 +34,7 @@ namespace Skinet.API.Controllers
         }
 
         [Authorize]
-        [HttpGet("logout")]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();

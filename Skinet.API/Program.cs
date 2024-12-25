@@ -3,7 +3,6 @@ using Skinet.Application.Services;
 using Skinet.Data.Context;
 using Skinet.Data.Extensions;
 using Skinet.Entities.Identity;
-using Skinet.Entities.Product;
 using Skinet.Infra.Extensions;
 using StackExchange.Redis;
 
