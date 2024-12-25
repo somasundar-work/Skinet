@@ -4,7 +4,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../../core/services/cart.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, Location } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 
@@ -25,4 +25,5 @@ import { RouterLink } from '@angular/router';
 })
 export class OrderSummaryComponent {
   cartService = inject(CartService);
+  location = inject(Location);
 }

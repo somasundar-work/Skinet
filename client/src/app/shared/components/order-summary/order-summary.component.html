@@ -25,22 +25,23 @@
   <mat-divider></mat-divider>
   <div class="flex justify-between my-2">
     <span>Subtotal</span>
-    <span>{{ cartService.totals().subtotal | currency }}</span>
+    <span>{{ cartService.totals().subtotal | currency : "INR" }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Discount</span>
-    <span>{{ cartService.totals().discount | currency }}</span>
+    <span>{{ cartService.totals().discount | currency : "INR" }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Shipping</span>
-    <span>{{ cartService.totals().shipping | currency }}</span>
+    <span>{{ cartService.totals().shipping | currency : "INR" }}</span>
   </div>
   <mat-divider></mat-divider>
   <div class="flex justify-between my-4 font-bold">
     <span>Total</span>
-    <span>{{ cartService.totals().total | currency }}</span>
+    <span>{{ cartService.totals().total | currency : "INR" }}</span>
   </div>
   <div class="grid grid-cols-1 gap-4">
+    @if (location.path() !== '/checkout') {
     <button
       routerLink="/checkout"
       mat-raised-button
@@ -54,5 +55,6 @@
       <mat-icon>shopping_cart</mat-icon>
       Continue Shopping
     </button>
+    }
   </div>
 </div>
