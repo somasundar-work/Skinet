@@ -25,20 +25,20 @@
   <mat-divider></mat-divider>
   <div class="flex justify-between my-2">
     <span>Subtotal</span>
-    <span>{{ cartService.totals().subtotal | currency : "INR" }}</span>
+    <span>{{ cartService.totals().subtotal | currency }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Discount</span>
-    <span>{{ cartService.totals().discount | currency : "INR" }}</span>
+    <span>{{ cartService.totals().discount | currency }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Shipping</span>
-    <span>{{ cartService.totals().shipping | currency : "INR" }}</span>
+    <span>{{ cartService.totals().shipping | currency }}</span>
   </div>
   <mat-divider></mat-divider>
   <div class="flex justify-between my-4 font-bold">
     <span>Total</span>
-    <span>{{ cartService.totals().total | currency : "INR" }}</span>
+    <span>{{ cartService.totals().total | currency }}</span>
   </div>
   <div class="grid grid-cols-1 gap-4">
     <button
