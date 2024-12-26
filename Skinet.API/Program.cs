@@ -1,4 +1,6 @@
 using Skinet.Application.Extensions;
+using Skinet.Application.Interfaces;
+using Skinet.Application.Repository;
 using Skinet.Application.Services;
 using Skinet.Data.Context;
 using Skinet.Data.Extensions;
@@ -27,6 +29,7 @@ builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<Sto
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
