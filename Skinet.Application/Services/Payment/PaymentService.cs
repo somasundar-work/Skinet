@@ -49,7 +49,7 @@ public class PaymentService(
             var options = new PaymentIntentCreateOptions
             {
                 Amount = (long)cart.Items.Sum(x => x.Quantity * x.Price * 100) + shippingPrice,
-                Currency = "inr",
+                Currency = "usd",
                 PaymentMethodTypes = ["card"],
             };
             intent = await service.CreateAsync(options);

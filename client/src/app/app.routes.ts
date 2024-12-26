@@ -13,6 +13,7 @@ import { ProfileComponent } from './features/account/profile/profile.component';
 import { authGuard } from './core/guards/auth.guard';
 import { emptycartGuard } from './core/guards/emptycart.guard';
 import { OrdersComponent } from './features/account/orders/orders.component';
+import { CheckoutSuccessComponent } from './features/checkout/checkout-success/checkout-success.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,11 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
+    canActivate: [authGuard, emptycartGuard],
+  },
+  {
+    path: 'checkout/success',
+    component: CheckoutSuccessComponent,
     canActivate: [authGuard, emptycartGuard],
   },
   { path: 'account/login', component: LoginComponent },

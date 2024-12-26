@@ -73,17 +73,15 @@ export class CartService {
         cart.items.splice(index, 1);
       }
       if (cart.items.length === 0) {
-        this.deleteCart(cart.id);
+        this.deleteCart();
       } else {
         this.setCart(cart);
       }
     }
   }
 
-  deleteCart(id: string) {
-    var params = new HttpParams();
-    params = params.append('id', id);
-    this.http.delete(this.baseUrl + 'Cart', { params }).subscribe({
+  deleteCart() {
+    this.http.delete(this.baseUrl + 'cart?id=' + this.cart()?.id).subscribe({
       next: () => {
         localStorage.removeItem('cart_id');
         this.cart.set(null);
