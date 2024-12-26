@@ -1,4 +1,3 @@
-using System;
 using Skinet.Entities.Delivery;
 
 namespace Skinet.Entities.OrderAggregate;
@@ -15,7 +14,7 @@ public class Order : BaseEntity
 
     public PaymentSummary PaymentSummary { get; set; } = null!;
 
-    public IReadOnlyList<OrderItem> OrderItems { get; set; } = [];
+    public List<OrderItem> OrderItems { get; set; } = [];
 
     public decimal SubTotal { get; set; }
 
