@@ -22,4 +22,9 @@ public class Order : BaseEntity
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
     public required string PaymentIntentId { get; set; }
+
+    public decimal GetTotal()
+    {
+        return SubTotal + DeliveryMethod.Price;
+    }
 }

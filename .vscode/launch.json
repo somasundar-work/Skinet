@@ -1,6 +1,11 @@
 {
   "configurations": [
     {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach"
+    },
+    {
       "type": "coreclr",
       "request": "launch",
       "name": "Launch Skinet.API",
