@@ -49,6 +49,6 @@ export class HeaderComponent {
   }
 
   changeCurrency(currency: string) {
-    this.cartService.selectedCurrency.set(currency);
+    this.cartService.changeCurreny(currency);
   }
 }
