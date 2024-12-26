@@ -16,7 +16,10 @@ import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import {
+  StepperOrientation,
+  StepperSelectionEvent,
+} from '@angular/cdk/stepper';
 import { Address } from '../../shared/models/user';
 import { AccountService } from '../../core/services/account.service';
 import { firstValueFrom } from 'rxjs';
@@ -24,7 +27,7 @@ import { CheckoutDeliveryComponent } from './checkout-delivery/checkout-delivery
 import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
 import { CartService } from '../../core/services/cart.service';
 import { CurrencyPipe } from '@angular/common';
-import { state } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-checkout',
@@ -55,9 +58,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     delivery: boolean;
   }>({ address: false, delivery: false, card: false });
   confirmationToken?: ConfirmationToken;
+  stepperOrientation: StepperOrientation = 'vertical';
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   async ngOnInit() {
     try {
+      this.breakpointObserver
+        .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+        .subscribe((result) => {
+          this.stepperOrientation = result.matches ? 'horizontal' : 'vertical';
+        });
       this.addressElement = await this.stripeService.CreateAddressElement();
       this.addressElement.mount('#address-element');
       this.addressElement.on('change', this.handleAddressChange);
