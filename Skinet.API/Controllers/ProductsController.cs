@@ -6,19 +6,24 @@ using Skinet.Entities.Product;
 
 namespace Skinet.API.Controllers;
 
-public class ProductsController(IGenericRepository<Product> repo) : BaseApiController
+public class ProductsController(IUnitOfWork unit) : BaseApiController
 {
     [HttpGet]
     public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams specParams)
     {
         var spec = new ProductSpecification(specParams);
-        return await CreatePagedResult(repo, spec, specParams.PageIndex, specParams.PageSize);
+        return await CreatePagedResult(
+            unit.Repository<Product>(),
+            spec,
+            specParams.PageIndex,
+            specParams.PageSize
+        );
     }
 
     [HttpGet("{id:int}")] // api/products/2
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var product = await repo.GetByIdAsync(id);
+        var product = await unit.Repository<Product>().GetByIdAsync(id);
 
         if (product == null)
             return NotFound();
@@ -30,9 +35,9 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
-        repo.Add(product);
+        unit.Repository<Product>().Add(product);
 
-        if (await repo.SaveAllAsync())
+        if (await unit.Complete())
         {
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
@@ -47,9 +52,9 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         if (product.Id != id || !ProductExists(id))
             return BadRequest("Cannot update this product");
 
-        repo.Update(product);
+        unit.Repository<Product>().Update(product);
 
-        if (await repo.SaveAllAsync())
+        if (await unit.Complete())
         {
             return NoContent();
         }
@@ -61,14 +66,14 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = await repo.GetByIdAsync(id);
+        var product = await unit.Repository<Product>().GetByIdAsync(id);
 
         if (product == null)
             return NotFound();
 
-        repo.Delete(product);
+        unit.Repository<Product>().Delete(product);
 
-        if (await repo.SaveAllAsync())
+        if (await unit.Complete())
         {
             return NoContent();
         }
@@ -80,7 +85,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
     {
         var spec = new BrandListSpecification();
-        var brands = await repo.ListAsync(spec);
+        var brands = await unit.Repository<Product>().ListAsync(spec);
         return Ok(brands);
     }
 
@@ -88,12 +93,12 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     public async Task<ActionResult<IReadOnlyList<string>>> GetCategories()
     {
         var spec = new CategoryListSpecification();
-        var categories = await repo.ListAsync(spec);
+        var categories = await unit.Repository<Product>().ListAsync(spec);
         return Ok(categories);
     }
 
     private bool ProductExists(int id)
     {
-        return repo.Exists(id);
+        return unit.Repository<Product>().Exists(id);
     }
 }

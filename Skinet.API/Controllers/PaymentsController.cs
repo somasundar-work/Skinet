@@ -8,10 +8,8 @@ using Skinet.Entities.Delivery;
 namespace Skinet.API.Controllers
 {
     [Authorize]
-    public class PaymentsController(
-        IPaymentService paymentService,
-        IGenericRepository<DeliveryMethod> dmRepo
-    ) : BaseApiController
+    public class PaymentsController(IPaymentService paymentService, IUnitOfWork unit)
+        : BaseApiController
     {
         [HttpPost("{cartId}")]
         public async Task<ActionResult<ShoppingCart>> CreateOrUpdatePaymentIntent(string cartId)
@@ -26,7 +24,7 @@ namespace Skinet.API.Controllers
         [HttpGet("delivery-methods")]
         public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
         {
-            return Ok(await dmRepo.ListAllAsync());
+            return Ok(await unit.Repository<DeliveryMethod>().ListAllAsync());
         }
     }
 }

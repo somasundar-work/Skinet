@@ -6,12 +6,8 @@ using Stripe;
 
 namespace Skinet.Application.Services;
 
-public class PaymentService(
-    IConfiguration config,
-    ICartService cartService,
-    IGenericRepository<Entities.Product.Product> productRepo,
-    IGenericRepository<DeliveryMethod> dmRepo
-) : IPaymentService
+public class PaymentService(IConfiguration config, ICartService cartService, IUnitOfWork unit)
+    : IPaymentService
 {
     public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
     {
@@ -23,7 +19,8 @@ public class PaymentService(
         long shippingPrice = 0;
         if (cart.DeliveryMethodId.HasValue)
         {
-            var deliveryMethod = await dmRepo.GetByIdAsync((int)cart.DeliveryMethodId);
+            var deliveryMethod = await unit.Repository<DeliveryMethod>()
+                .GetByIdAsync((int)cart.DeliveryMethodId);
             if (deliveryMethod == null)
                 return null;
             shippingPrice = (long)deliveryMethod.Price * 100;
@@ -31,7 +28,8 @@ public class PaymentService(
 
         foreach (var item in cart.Items)
         {
-            var productItem = await productRepo.GetByIdAsync(item.ProductId);
+            var productItem = await unit.Repository<Entities.Product.Product>()
+                .GetByIdAsync(item.ProductId);
             if (productItem == null)
                 return null;
             if (item.Price != productItem.Price)
