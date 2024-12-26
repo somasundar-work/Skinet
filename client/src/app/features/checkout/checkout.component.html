@@ -10,7 +10,11 @@
       <mat-step label="Address">
         <div id="address-element"></div>
         <div class="grid grid-cols-1 gap-4 mt-4">
-          <mat-checkbox class="float-right" [checked]="saveAddress" (change)="onSaveAddressCheckboxChange($event)">
+          <mat-checkbox
+            class="float-right"
+            [checked]="saveAddress"
+            (change)="onSaveAddressCheckboxChange($event)"
+          >
             Save as default address
           </mat-checkbox>
         </div>
@@ -29,9 +33,57 @@
           </button>
         </div>
       </mat-step>
-      <mat-step label="Shipping"> Delivery Form </mat-step>
-      <mat-step label="Payment"> Payment Form </mat-step>
-      <mat-step label="Confirmation"> Review Form </mat-step>
+      <mat-step label="Shipping">
+        <app-checkout-delivery></app-checkout-delivery>
+        <div
+          class="grid grid-cols-1 gap-4 md:flex md:justify-between md:flex-row-reverse mt-6"
+        >
+          <button matStepperNext mat-flat-button class="w-full md:w-auto">
+            Next
+          </button>
+          <button
+            matStepperPrevious
+            mat-stroked-button
+            class="w-full md:w-auto"
+          >
+            Back
+          </button>
+        </div>
+      </mat-step>
+      <mat-step label="Payment">
+        <div id="payment-element"></div>
+        <div
+          class="grid grid-cols-1 gap-4 md:flex md:justify-between md:flex-row-reverse mt-6"
+        >
+          <button matStepperNext mat-flat-button class="w-full md:w-auto">
+            Next
+          </button>
+          <button
+            matStepperPrevious
+            mat-stroked-button
+            class="w-full md:w-auto"
+          >
+            Back
+          </button>
+        </div>
+      </mat-step>
+      <mat-step label="Confirmation">
+        <app-checkout-review></app-checkout-review>
+        <div
+          class="grid grid-cols-1 gap-4 md:flex md:justify-between md:flex-row-reverse mt-6"
+        >
+          <button mat-flat-button class="w-full md:w-auto">
+            Pay {{ cartService.totals()?.total | currency : "INR" }}
+          </button>
+          <button
+            matStepperPrevious
+            mat-stroked-button
+            class="w-full md:w-auto"
+          >
+            Back
+          </button>
+        </div>
+      </mat-step>
     </mat-stepper>
   </div>
   <div class="w-full lg:w-1/4">

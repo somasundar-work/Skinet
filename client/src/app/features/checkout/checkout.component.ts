@@ -4,7 +4,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { StripeService } from '../../core/services/stripe.service';
-import { StripeAddressElement } from '@stripe/stripe-js';
+import { StripeAddressElement, StripePaymentElement } from '@stripe/stripe-js';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import {
   MatCheckboxChange,
@@ -14,6 +14,10 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Address } from '../../shared/models/user';
 import { AccountService } from '../../core/services/account.service';
 import { firstValueFrom } from 'rxjs';
+import { CheckoutDeliveryComponent } from './checkout-delivery/checkout-delivery.component';
+import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
+import { CartService } from '../../core/services/cart.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -23,6 +27,9 @@ import { firstValueFrom } from 'rxjs';
     MatButtonModule,
     RouterLink,
     MatCheckboxModule,
+    CheckoutDeliveryComponent,
+    CheckoutReviewComponent,
+    CurrencyPipe,
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
@@ -31,13 +38,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private stripeService = inject(StripeService);
   private snack = inject(SnackbarService);
   private accountService = inject(AccountService);
+  cartService = inject(CartService);
   addressElement?: StripeAddressElement;
+  paymentElement?: StripePaymentElement;
   saveAddress: boolean = false;
 
   async ngOnInit() {
     try {
       this.addressElement = await this.stripeService.CreateAddressElement();
       this.addressElement.mount('#address-element');
+
+      this.paymentElement = await this.stripeService.createPaymentElement();
+      this.paymentElement.mount('#payment-element');
     } catch (error: any) {
       this.snack.error(error.message);
     }
@@ -53,6 +65,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         const address = await this.getAddressFromStripeAddress();
         address && firstValueFrom(this.accountService.updateAddress(address));
       }
+    }
+    if ($event.selectedIndex === 2) {
+      await firstValueFrom(this.stripeService.createOrUpdatePaymentIntent());
     }
   }
 
