@@ -95,8 +95,13 @@
             mat-flat-button
             class="w-full md:w-auto"
             (click)="confirmPayment(stepper)"
+            [disabled]="!confirmationToken || loading"
           >
-            Pay {{ cartService.totals()?.total | currency }}
+            @if(loading) {
+            <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+            <span> Pay {{ cartService.totals()?.total | currency }} </span>
+            }
           </button>
           <button
             matStepperPrevious

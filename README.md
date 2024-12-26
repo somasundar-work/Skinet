@@ -24,6 +24,14 @@ The project is organized into the following main directories:
 - **Core**: Contains the core domain entities and interfaces.
 - **Infrastructure**: Contains the implementation of the core interfaces, including data access and external services.
 
+## Stripe Integration
+
+This module integrates with the Stripe API to handle payment processing.
+
+### Stripe Testing
+
+For testing purposes, you can use the test card numbers provided by Stripe. Refer to the following URL for more information: [Stripe Test Cards](https://docs.stripe.com/testing?testing-method=card-numbers)
+
 ### API
 
 The API project is the entry point of the application and contains the following key components:

@@ -1,1 +1,36 @@
-<p>checkout-success works!</p>
+<div
+  class="checkout-success p-6 bg-white rounded-lg shadow-md flex flex-col items-center justify-center"
+>
+  <mat-icon class="check-circle-icon">check_circle</mat-icon>
+  <h1 class="text-2xl font-bold text-gray-800 text-center">
+    Thank You for Your fake Purchase!
+  </h1>
+  <p class="text-gray-600 text-center">
+    Your fake order has been successfully placed.
+  </p>
+  <div class="order-details mt-4 text-center">
+    <h2 class="text-xl font-semibold text-gray-700">Order Details</h2>
+    <p class="text-gray-600">Fake Order Number: #123456</p>
+    <p class="text-gray-600">Estimated Delivery Date: 2023-10-15</p>
+  </div>
+  <div
+    class="actions mt-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+  >
+    <a
+      mat-raised-button
+      routerLink="/account/orders"
+      class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded flex items-center justify-center"
+    >
+      <mat-icon class="mr-2">receipt</mat-icon>
+      View Your Orders
+    </a>
+    <a
+      mat-stroked-button
+      routerLink="/shop"
+      class="btn btn-secondary border border-blue-500 text-blue-500 py-2 px-4 rounded flex items-center justify-center"
+    >
+      <mat-icon class="mr-2">shopping_cart</mat-icon>
+      Continue Shopping
+    </a>
+  </div>
+</div>
