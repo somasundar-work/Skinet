@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Skinet.Application.Interfaces;
 using Skinet.Entities;
 
@@ -6,13 +7,11 @@ namespace Skinet.Application.Evaluator;
 public class SpecificationEvaluator<T>
     where T : BaseEntity
 {
-    public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecification<T> spec)
+    public static IQueryable<T> GetQuery(IQueryable<T> query, ISpecification<T> spec)
     {
-        var query = inputQuery;
-
         if (spec.Criteria != null)
         {
-            query = query.Where(spec.Criteria);
+            query = query.Where(spec.Criteria); // x => x.Brand == brand
         }
 
         if (spec.OrderBy != null)
@@ -35,19 +34,23 @@ public class SpecificationEvaluator<T>
             query = query.Skip(spec.Skip).Take(spec.Take);
         }
 
+        query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
+        query = spec.IncludeStrings.Aggregate(
+            query,
+            (current, include) => current.Include(include)
+        );
+
         return query;
     }
 
     public static IQueryable<TResult> GetQuery<TSpec, TResult>(
-        IQueryable<T> inputQuery,
+        IQueryable<T> query,
         ISpecification<T, TResult> spec
     )
     {
-        var query = inputQuery;
-
         if (spec.Criteria != null)
         {
-            query = query.Where(spec.Criteria);
+            query = query.Where(spec.Criteria); // x => x.Brand == brand
         }
 
         if (spec.OrderBy != null)
@@ -61,6 +64,7 @@ public class SpecificationEvaluator<T>
         }
 
         var selectQuery = query as IQueryable<TResult>;
+
         if (spec.Select != null)
         {
             selectQuery = query.Select(spec.Select);
