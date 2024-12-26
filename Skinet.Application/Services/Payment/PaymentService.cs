@@ -15,12 +15,11 @@ public class PaymentService(
 {
     public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
     {
-        StripeConfiguration.ApiKey = config["StripeSettings:Secretkey"];
-
         var cart = await cartService.GetCartAsync(cartId);
         if (cart == null)
             return null;
 
+        StripeConfiguration.ApiKey = config[$"StripeSettings:{cart.Currency}:Secretkey"];
         long shippingPrice = 0;
         if (cart.DeliveryMethodId.HasValue)
         {
@@ -49,7 +48,7 @@ public class PaymentService(
             var options = new PaymentIntentCreateOptions
             {
                 Amount = (long)cart.Items.Sum(x => x.Quantity * x.Price * 100) + shippingPrice,
-                Currency = "usd",
+                Currency = cart.Currency,
                 PaymentMethodTypes = ["card"],
             };
             intent = await service.CreateAsync(options);

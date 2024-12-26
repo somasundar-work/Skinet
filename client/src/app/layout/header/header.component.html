@@ -72,6 +72,35 @@
           Profile
         </button>
         <mat-divider></mat-divider>
+        <mat-menu
+          #currencyMenu="matMenu"
+          class="bg-white shadow-2xl border border-gray-300 rounded-md"
+        >
+          <button
+            mat-menu-item
+            (click)="changeCurrency('USD')"
+            class="flex items-center px-4 py-2 hover:bg-gray-100"
+          >
+            USD
+          </button>
+          <button
+            mat-menu-item
+            (click)="changeCurrency('INR')"
+            class="flex items-center px-4 py-2 hover:bg-gray-100"
+          >
+            INR
+          </button>
+        </mat-menu>
+        <button
+          mat-menu-item
+          [matMenuTriggerFor]="currencyMenu"
+          class="flex items-center px-4 py-2 hover:bg-gray-100"
+          matTooltip="Change Currency"
+        >
+          <mat-icon class="mr-2">attach_money</mat-icon>
+          Change Currency - ({{ cartService.selectedCurrency() }})
+        </button>
+        <mat-divider></mat-divider>
         <button
           mat-menu-item
           routerLink="/cart"

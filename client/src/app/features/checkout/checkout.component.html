@@ -100,7 +100,13 @@
             @if(loading) {
             <mat-spinner diameter="20"></mat-spinner>
             } @else {
-            <span> Pay {{ cartService.totals()?.total | currency }} </span>
+            <span>
+              Pay
+              {{
+                cartService.totals()?.total
+                  | currency : cartService.selectedCurrency()
+              }}
+            </span>
             }
           </button>
           <button

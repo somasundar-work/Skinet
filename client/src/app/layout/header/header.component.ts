@@ -47,4 +47,8 @@ export class HeaderComponent {
       },
     });
   }
+
+  changeCurrency(currency: string) {
+    this.cartService.selectedCurrency.set(currency);
+  }
 }

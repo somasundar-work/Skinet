@@ -29,7 +29,9 @@
             </div>
           </td>
           <td class="py-4">x {{ item.quantity }}</td>
-          <td class="py-4 text-right">{{ item.price | currency }}</td>
+          <td class="py-4 text-right">
+            {{ item.price | currency : cartService.selectedCurrency() }}
+          </td>
         </tr>
         }
       </tbody>

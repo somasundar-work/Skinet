@@ -29,7 +29,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductDetailsComponent implements OnInit {
   private shopService = inject(ShopService);
-  private cartService = inject(CartService);
+  cartService = inject(CartService);
   private activatedRoute = inject(ActivatedRoute);
   product?: Product;
   quantityInCart = 0;

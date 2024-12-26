@@ -29,7 +29,9 @@ export class StripeService {
   private paymentElememt?: StripePaymentElement;
 
   constructor() {
-    this.stripePromise = loadStripe(environment.stripePublicKey);
+    if (this.cartService.selectedCurrency() === 'INR')
+      this.stripePromise = loadStripe(environment.stripePublicKeyINR);
+    else this.stripePromise = loadStripe(environment.stripePublicKey);
   }
 
   async createConfirmationToken() {

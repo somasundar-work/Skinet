@@ -17,6 +17,7 @@ export class CartService {
     return this.cart()?.items.reduce((sum, item) => (sum += item.quantity), 0);
   });
   selectedDelivery = signal<DeliveryMethod | null>(null);
+  selectedCurrency = signal<string>(environment.appCurrency);
   totals = computed(() => {
     const cart = this.cart();
     const delivery = this.selectedDelivery();
@@ -36,12 +37,22 @@ export class CartService {
     };
   });
 
+  changeCurreny(currency: string) {
+    this.selectedCurrency.set(currency);
+    const cart = this.cart();
+    if (cart != null) {
+      cart.currency = currency;
+      this.setCart(cart);
+    }
+  }
+
   getCart(id: string) {
     var params = new HttpParams();
     params = params.append('id', id);
     return this.http.get<Cart>(this.baseUrl + 'Cart', { params }).pipe(
       map((cart) => {
         this.cart.set(cart);
+        this.selectedCurrency.set(cart.currency);
         return cart;
       })
     );
@@ -122,6 +133,7 @@ export class CartService {
 
   private createCart(): Cart {
     const cart = new Cart();
+    cart.currency = this.selectedCurrency();
     localStorage.setItem('cart_id', cart.id);
     return cart;
   }
