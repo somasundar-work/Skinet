@@ -1,1 +1,48 @@
-<p>order works!</p>
+<div class="container mx-auto mt-32 px-4 sm:px-6 lg:px-8">
+  <h2 class="font-semibold text-2xl mb-6 text-center">My Orders</h2>
+  <div class="flex flex-col">
+    <div class="w-full overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 cursor-pointer">
+        <thead class="bg-gray-50">
+          <tr class="uppercase text-gray-600 text-xs sm:text-sm">
+            <th class="text-center px-2 sm:px-6 py-3">Order</th>
+            <th class="text-left px-2 sm:px-6 py-3">Date</th>
+            <th class="text-left px-2 sm:px-6 py-3">Total</th>
+            <th class="text-left px-2 sm:px-6 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          @for (order of orders; track $index) {
+          <tr class="uppercase text-gray-600 text-xs sm:text-sm">
+            <td
+              routerLink="/account/orders/{{ order.id }}"
+              class="text-center px-2 sm:px-6 py-3 hover:bg-gray-100 font-bold text-blue-500"
+            >
+              # {{ order.id }}
+            </td>
+            <td class="text-left px-2 sm:px-6 py-3">
+              {{ order.orderDate | date : "medium" }}
+            </td>
+            <td class="text-left px-2 sm:px-6 py-3">
+              {{ order.total | currency : "INR" }}
+            </td>
+            <td class="text-left px-2 sm:px-6 py-3 font-bold">
+              <span
+                [ngClass]="{
+                  'text-yellow-500': order.status === 'Pending',
+                  'text-green-500': order.status === 'PaymentReceived',
+                  'text-red-500':
+                    order.status === 'PaymentFailed' ||
+                    order.status === 'PaymentMisMatch'
+                }"
+              >
+                {{ order.status }}
+              </span>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -72,6 +72,26 @@
           Profile
         </button>
         <mat-divider></mat-divider>
+        <button
+          mat-menu-item
+          routerLink="/cart"
+          class="flex items-center px-4 py-2 hover:bg-gray-100"
+          matTooltip="View Profile"
+        >
+          <mat-icon class="mr-2">shopping_cart</mat-icon>
+          My Cart
+        </button>
+        <mat-divider></mat-divider>
+        <button
+          mat-menu-item
+          routerLink="/account/orders"
+          class="flex items-center px-4 py-2 hover:bg-gray-100"
+          matTooltip="View Profile"
+        >
+          <mat-icon class="mr-2">history</mat-icon>
+          My Orders
+        </button>
+        <mat-divider></mat-divider>
         <mat-menu
           #currencyMenu="matMenu"
           class="bg-white shadow-2xl border border-gray-300 rounded-md"
@@ -99,26 +119,6 @@
         >
           <mat-icon class="mr-2">attach_money</mat-icon>
           Change Currency - ({{ cartService.selectedCurrency() }})
-        </button>
-        <mat-divider></mat-divider>
-        <button
-          mat-menu-item
-          routerLink="/cart"
-          class="flex items-center px-4 py-2 hover:bg-gray-100"
-          matTooltip="View Profile"
-        >
-          <mat-icon class="mr-2">shopping_cart</mat-icon>
-          My Cart
-        </button>
-        <mat-divider></mat-divider>
-        <button
-          mat-menu-item
-          routerLink="/account/orders"
-          class="flex items-center px-4 py-2 hover:bg-gray-100"
-          matTooltip="View Profile"
-        >
-          <mat-icon class="mr-2">history</mat-icon>
-          My Orders
         </button>
         <mat-divider></mat-divider>
         <button

@@ -1,6 +1,6 @@
 export type Order = {
   id: number;
-  orderDate: string;
+  orderDate: Date;
   buyerEmail: string;
   shippingAddress: ShippingAddress;
   deliveryMethod: string;
