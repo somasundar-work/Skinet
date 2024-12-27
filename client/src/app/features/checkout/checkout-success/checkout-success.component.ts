@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -20,6 +20,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './checkout-success.component.html',
   styleUrl: './checkout-success.component.scss',
 })
-export class CheckoutSuccessComponent {
+export class CheckoutSuccessComponent implements OnDestroy {
   signalrService = inject(SignalrService);
+
+  ngOnDestroy(): void {
+    this.signalrService.orderSignal.set(null);
+  }
 }
