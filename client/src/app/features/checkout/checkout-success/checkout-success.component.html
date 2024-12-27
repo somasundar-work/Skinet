@@ -55,6 +55,10 @@
               order.paymentSummary.expYear
             }}
           </p>
+          <p class="mt-2">
+            Amount:
+            {{ order.total | currency : "INR" }}
+          </p>
         </div>
       </div>
     </div>
