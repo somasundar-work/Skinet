@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Skinet.API.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FallbackController : BaseApiController
     {
         public IActionResult Index()
