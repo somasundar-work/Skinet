@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Skinet.Application.Extensions;
 using Skinet.Application.Interfaces;
 using Skinet.Application.Services;
+using Skinet.Application.SignalR;
 using Skinet.Application.Specifications;
 using Skinet.Entities.Cart;
 using Skinet.Entities.Delivery;
@@ -13,7 +16,8 @@ namespace Skinet.API.Controllers
     public class PaymentsController(
         IPaymentService paymentService,
         IUnitOfWork unit,
-        ILogger<PaymentsController> logger
+        ILogger<PaymentsController> logger,
+        IHubContext<NotificationHub> hubContext
     ) : BaseApiController
     {
         private readonly string _whSecret =
@@ -88,7 +92,14 @@ namespace Skinet.API.Controllers
 
                 await unit.Complete();
 
-                // TODO: SignalR
+                var connectionId = NotificationHub.GetConnectionIdByEmail(order.BuyerEmail);
+
+                if (!string.IsNullOrEmpty(connectionId))
+                {
+                    await hubContext
+                        .Clients.Client(connectionId)
+                        .SendAsync("OrderCompleteNotification", order.ToDto());
+                }
             }
         }
 

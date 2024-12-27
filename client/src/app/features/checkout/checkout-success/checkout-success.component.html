@@ -1,7 +1,8 @@
 <div
+  *ngIf="signalrService.orderSignal() as order"
   class="checkout-success p-6 bg-white rounded-lg shadow-md flex flex-col items-center justify-center"
 >
-  <mat-icon class="check-circle-icon">check_circle</mat-icon>
+  <mat-icon class="check-circle-icon text-green-400"> check_circle </mat-icon>
   <h1 class="text-2xl font-bold text-gray-800 text-center">
     Thank You for Your fake Purchase!
   </h1>
@@ -10,15 +11,60 @@
   </p>
   <div class="order-details mt-4 text-center">
     <h2 class="text-xl font-semibold text-gray-700">Order Details</h2>
-    <p class="text-gray-600">Fake Order Number: #123456</p>
-    <p class="text-gray-600">Estimated Delivery Date: 2023-10-15</p>
+    <p class="text-gray-600">Fake Order Number: #{{ order.id }}</p>
+    <p class="text-gray-600">
+      Order Date:
+      {{ order.orderDate | date : "medium" }}
+    </p>
+  </div>
+  <div class="container w-full">
+    <h4 class="text-lg font-semibold">Billing and Delivery Information</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="w-full h-full">
+        <div class="p-4 border rounded shadow-md w-full h-full">
+          <h3 class="text-xl font-bold mb-2 border-b border-black text-right">
+            Shipping Address
+          </h3>
+          <p class="mt-2">
+            {{ order.shippingAddress.line1 }}
+            <br />{{ order.shippingAddress.line2 }} <br />{{
+              order.shippingAddress.city
+            }}, {{ order.shippingAddress.state }} <br />{{
+              order.shippingAddress.postalCode
+            }}
+            <br />{{ order.shippingAddress.country }}
+          </p>
+        </div>
+      </div>
+      <div class="w-full h-full">
+        <div class="p-4 border rounded shadow-md w-full h-full">
+          <h3 class="text-xl font-bold mb-2 border-b border-black text-right">
+            Payment Details
+          </h3>
+          <p class="text-lg font-semibold">
+            Card Brand:
+            {{ order.paymentSummary.brand }}
+          </p>
+          <p class="mt-2">
+            Last 4 Digits: **** **** ****
+            {{ order.paymentSummary.last4 }}
+          </p>
+          <p class="mt-2">
+            Expiry:
+            {{ order.paymentSummary.expMonth }}/{{
+              order.paymentSummary.expYear
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
   <div
     class="actions mt-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
   >
     <a
       mat-raised-button
-      routerLink="/account/orders"
+      routerLink="/account/orders/{{ order.id }}"
       class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded flex items-center justify-center"
     >
       <mat-icon class="mr-2">receipt</mat-icon>
@@ -34,3 +80,22 @@
     </a>
   </div>
 </div>
+
+<section *ngIf="!signalrService.orderSignal()" class="bg-white py-16">
+  <div class="mx-auto max-w-2xl px-4">
+    <h2 class="font-semibold text-2xl mb-2">Order processing... please wait</h2>
+
+    <div
+      class="space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 mb-8"
+    >
+      <div class="flex flex-col justify-center items-center">
+        <mat-spinner diameter="30"></mat-spinner>
+        <p class="text-xl">Loading order...</p>
+        <span>Your payment has been received. We are creating the order</span>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button routerLink="/shop" mat-stroked-button>Continue shopping</button>
+    </div>
+  </div>
+</section>

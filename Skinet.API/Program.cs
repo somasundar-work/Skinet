@@ -2,6 +2,7 @@ using Skinet.Application.Extensions;
 using Skinet.Application.Interfaces;
 using Skinet.Application.Repository;
 using Skinet.Application.Services;
+using Skinet.Application.SignalR;
 using Skinet.Data.Context;
 using Skinet.Data.Extensions;
 using Skinet.Entities.Identity;
@@ -31,6 +32,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddSignalR();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -54,9 +57,12 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
+app.MapHub<NotificationHub>("/hub/notifications");
 
 app.MigrateStore();
 

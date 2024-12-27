@@ -28,6 +28,12 @@ The project is organized into the following main directories:
 
 This module integrates with the Stripe API to handle payment processing.
 
+# Stripe webhook Command
+
+```
+stripe listen --forward-to http://localhost:5119/api/Payments/webhook -e payment_intent.succeeded
+```
+
 ### Stripe Testing
 
 For testing purposes, you can use the test card numbers provided by Stripe. Refer to the following URL for more information: [Stripe Test Cards](https://docs.stripe.com/testing?testing-method=card-numbers)
