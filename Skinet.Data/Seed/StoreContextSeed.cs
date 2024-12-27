@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json;
 using Skinet.Data.Context;
 using Skinet.Entities.Delivery;
@@ -14,9 +15,10 @@ public class StoreContextSeed
     /// <returns>A task that represents the asynchronous operation.</returns>
     public static async Task SeedAsync(StoreContext storeContext)
     {
+        var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (!storeContext.Products.Any())
         {
-            var productsData = File.ReadAllText(Constants.ContextConstants.ProductsJsonPath);
+            var productsData = File.ReadAllText(path + Constants.ContextConstants.ProductsJsonPath);
             var products = JsonSerializer.Deserialize<List<Product>>(productsData);
             if (products != null)
             {
@@ -31,7 +33,9 @@ public class StoreContextSeed
 
         if (!storeContext.DeliveryMethods.Any())
         {
-            var dmData = File.ReadAllText(Constants.ContextConstants.DeliveryMethodsJsonPath);
+            var dmData = File.ReadAllText(
+                path + Constants.ContextConstants.DeliveryMethodsJsonPath
+            );
             var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
             if (deliveryMethods != null)
             {
