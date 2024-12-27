@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Skinet.Data.Context;
 using Skinet.Data.Seed;
 
@@ -59,14 +61,24 @@ public static class StoreContextExtensions
     /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddStoreContext(
         this IServiceCollection services,
-        IConfiguration configuration
+        IConfiguration configuration,
+        IWebHostEnvironment environment
     )
     {
         services.AddDbContext<StoreContext>(options =>
         {
-            options.UseNpgsql(
-                configuration.GetConnectionString(Constants.ContextConstants.DefaultConnection)
-            );
+            if (environment.IsDevelopment() || Constants.ContextConstants.DatabaseType == "PSQL")
+            {
+                options.UseNpgsql(
+                    configuration.GetConnectionString(Constants.ContextConstants.DefaultConnection)
+                );
+            }
+            else
+            {
+                options.UseSqlServer(
+                    configuration.GetConnectionString(Constants.ContextConstants.DefaultConnection)
+                );
+            }
         });
 
         return services;
