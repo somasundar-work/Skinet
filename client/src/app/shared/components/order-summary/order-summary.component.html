@@ -2,21 +2,34 @@
   <h2 class="text-xl font-semibold mb-4">Apply Voucher</h2>
   <mat-divider></mat-divider>
   <div
+    *ngIf="cartService.cart()?.coupon as coupon"
     class="flex justify-between items-center my-2 p-2 bg-green-100 rounded-lg shadow-sm"
   >
-    <span class="text-green-700">Voucher Applied: SAVE10</span>
-    <button mat-button color="warn">Remove</button>
+    <span class="text-green-700">
+      Voucher Applied: {{ cartService.cart()?.coupon?.name }}
+    </span>
+    <button mat-button color="warn" (click)="removeCouponCode()">Remove</button>
   </div>
   <div class="flex items-center my-2">
     <mat-form-field class="flex-grow">
       <mat-label>Voucher Code</mat-label>
       <input
         matInput
+        [(ngModel)]="code"
+        [disabled]="!!cartService.cart()?.coupon"
         placeholder="Enter voucher code"
         class="w-full p-2 border border-gray-300 rounded"
       />
     </mat-form-field>
-    <button mat-raised-button color="primary" class="ml-2">Apply</button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="ml-2"
+      (click)="applyCouponCode()"
+      [disabled]="!!cartService.cart()?.coupon"
+    >
+      Apply
+    </button>
   </div>
 </div>
 
@@ -25,28 +38,20 @@
   <mat-divider></mat-divider>
   <div class="flex justify-between my-2">
     <span>Subtotal</span>
-    <span>{{
-      cartService.totals()?.subtotal | currency : cartService.selectedCurrency()
-    }}</span>
+    <span>{{ cartService.totals()?.subtotal | currency : "INR" }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Discount</span>
-    <span>{{
-      cartService.totals()?.discount | currency : cartService.selectedCurrency()
-    }}</span>
+    <span>{{ cartService.totals()?.discount | currency : "INR" }}</span>
   </div>
   <div class="flex justify-between my-2">
     <span>Shipping</span>
-    <span>{{
-      cartService.totals()?.shipping | currency : cartService.selectedCurrency()
-    }}</span>
+    <span>{{ cartService.totals()?.shipping | currency : "INR" }}</span>
   </div>
   <mat-divider></mat-divider>
   <div class="flex justify-between my-4 font-bold">
     <span>Total</span>
-    <span>{{
-      cartService.totals()?.total | currency : cartService.selectedCurrency()
-    }}</span>
+    <span>{{ cartService.totals()?.total | currency : "INR" }}</span>
   </div>
   <div class="grid grid-cols-1 gap-4">
     @if (location.path() !== '/checkout') {

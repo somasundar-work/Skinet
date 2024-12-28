@@ -2,6 +2,7 @@ using Skinet.Application.Extensions;
 using Skinet.Application.Interfaces;
 using Skinet.Application.Repository;
 using Skinet.Application.Services;
+using Skinet.Application.Services.Coupon;
 using Skinet.Application.SignalR;
 using Skinet.Data.Context;
 using Skinet.Data.Extensions;
@@ -31,6 +32,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddSignalR();
 
@@ -56,7 +58,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -66,8 +67,7 @@ app.UseStaticFiles();
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
 app.MapHub<NotificationHub>("/hub/notifications");
-
-app.MapFallbackToFile("Index", "Fallback");
+app.MapFallbackToController("Index", "Fallback");
 
 app.MigrateStore();
 

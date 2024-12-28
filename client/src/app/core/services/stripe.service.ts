@@ -29,9 +29,7 @@ export class StripeService {
   private paymentElememt?: StripePaymentElement;
 
   constructor() {
-    if (this.cartService.selectedCurrency() === 'INR')
-      this.stripePromise = loadStripe(environment.stripePublicKeyINR);
-    else this.stripePromise = loadStripe(environment.stripePublicKey);
+    this.stripePromise = loadStripe(environment.stripePublicKey);
   }
 
   async createConfirmationToken() {
@@ -135,10 +133,14 @@ export class StripeService {
 
   createOrUpdatePaymentIntent() {
     const cart = this.cartService.cart();
+    const hasClientSecret = !!cart?.clientSecret;
     if (!cart) throw new Error('Problem with cart');
     return this.http.post<Cart>(this.BaseUrl + 'payments/' + cart.id, {}).pipe(
-      map((cart) => {
-        this.cartService.setCart(cart);
+      map(async (cart) => {
+        if (!hasClientSecret) {
+          await firstValueFrom(this.cartService.setCart(cart));
+          return cart;
+        }
         return cart;
       })
     );

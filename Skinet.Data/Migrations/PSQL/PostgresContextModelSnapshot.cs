@@ -342,6 +342,9 @@ namespace Skinet.Data.Migrations.PSQL
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CouponCode")
+                        .HasColumnType("text");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
@@ -350,6 +353,9 @@ namespace Skinet.Data.Migrations.PSQL
 
                     b.Property<int>("DeliveryMethodId")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");

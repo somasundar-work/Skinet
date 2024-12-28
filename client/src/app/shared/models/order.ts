@@ -8,6 +8,7 @@ export type Order = {
   paymentSummary: PaymentSummary;
   orderItems: OrderItem[];
   subtotal: number;
+  discount: number;
   status: string;
   total: number;
   paymentIntentId: string;
@@ -46,4 +47,6 @@ export type OrderToCreate = {
   deliveryMethodId: number;
   shippingAddress: ShippingAddress;
   paymentSummary: PaymentSummary;
+  discount: number;
+  couponCode?: string;
 };

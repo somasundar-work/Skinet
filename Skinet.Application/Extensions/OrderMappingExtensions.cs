@@ -22,6 +22,8 @@ public static class OrderMappingExtensions
             Total = order.GetTotal(),
             Status = order.Status.ToString(),
             PaymentIntentId = order.PaymentIntentId,
+            Discount = order.Discount,
+            CouponCode = order.CouponCode,
         };
     }
 

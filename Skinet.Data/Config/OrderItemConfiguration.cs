@@ -11,5 +11,6 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     {
         builder.OwnsOne(x => x.ItemOrdered, o => o.WithOwner());
         builder.Property(x => x.Price).HasPrecision(18, 2);
+        builder.Property(x => x.Quantity).HasPrecision(18, 2);
     }
 }

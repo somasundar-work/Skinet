@@ -68,6 +68,8 @@ namespace Skinet.API.Controllers
                 PaymentSummary = orderDto.PaymentSummary,
                 PaymentIntentId = cart.PaymentIntentId,
                 BuyerEmail = email,
+                Discount = orderDto.Discount,
+                CouponCode = orderDto.CouponCode,
             };
 
             unit.Repository<Order>().Add(order);

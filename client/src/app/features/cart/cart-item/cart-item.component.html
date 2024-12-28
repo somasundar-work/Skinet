@@ -37,7 +37,7 @@
   </div>
   <div class="flex items-center justify-center sm:justify-end">
     <p class="text-lg font-bold text-gray-800 mr-4">
-      {{ item().price | currency : cartService.selectedCurrency() }}
+      {{ item().price | currency : "INR" }}
     </p>
     <button
       mat-button

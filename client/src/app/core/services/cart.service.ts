@@ -1,9 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Cart, CartItem } from '../../shared/models/cart';
+import { Cart, CartItem, Coupon } from '../../shared/models/cart';
 import { Product } from '../../shared/models/product';
-import { map } from 'rxjs';
+import { firstValueFrom, map, tap } from 'rxjs';
 import { DeliveryMethod } from '../../shared/models/deliveryMethod';
 import { Router } from '@angular/router';
 
@@ -29,15 +29,27 @@ export class CartService {
       0
     );
     const shipping = delivery?.price || 0;
-    const discount = 0;
+
+    let discountValue = 0;
+    if (cart.coupon) {
+      if (cart.coupon.amountOff) {
+        discountValue = cart.coupon.amountOff;
+      } else if (cart.coupon.percentOff) {
+        discountValue = subtotal * (cart.coupon.percentOff / 100);
+      }
+    }
 
     return {
       subtotal,
       shipping,
-      discount,
-      total: subtotal + shipping - discount,
+      discount: discountValue,
+      total: subtotal + shipping - discountValue,
     };
   });
+
+  applyDiscount(code: string) {
+    return this.http.get<Coupon>(this.baseUrl + 'coupon/' + code);
+  }
 
   changeCurreny(currency: string) {
     this.selectedCurrency.set(currency);
@@ -61,21 +73,23 @@ export class CartService {
   }
 
   setCart(cart: Cart) {
-    return this.http.post<Cart>(this.baseUrl + 'Cart', cart).subscribe({
-      next: (cart) => this.cart.set(cart),
-    });
+    return this.http.post<Cart>(this.baseUrl + 'Cart', cart).pipe(
+      tap((cart) => {
+        this.cart.set(cart);
+      })
+    );
   }
 
-  addItemToCart(item: CartItem | Product, Quantity = 1) {
+  async addItemToCart(item: CartItem | Product, Quantity = 1) {
     const cart = this.cart() ?? this.createCart();
     if (this.isProduct(item)) {
       item = this.mapProductToCartItem(item);
     }
     cart.items = this.addOrUpdateItem(cart.items, item, Quantity);
-    this.setCart(cart);
+    await firstValueFrom(this.setCart(cart));
   }
 
-  removeItemFromCart(productId: number, Quantity = 1) {
+  async removeItemFromCart(productId: number, Quantity = 1) {
     const cart = this.cart();
     if (!cart) return;
     const index = cart.items.findIndex((x) => x.productId == productId);
@@ -88,7 +102,7 @@ export class CartService {
       if (cart.items.length === 0) {
         this.deleteCart();
       } else {
-        this.setCart(cart);
+        await firstValueFrom(this.setCart(cart));
       }
     }
   }

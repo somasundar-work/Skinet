@@ -1,4 +1,5 @@
 using System;
+using Skinet.Entities.OrderAggregate;
 
 namespace Skinet.Entities.Cart;
 
@@ -10,4 +11,5 @@ public class ShoppingCart
     public string? ClientSecret { get; set; }
     public string? PaymentIntentId { get; set; }
     public string? Currency { get; set; }
+    public AppCoupon? Coupon { get; set; }
 }

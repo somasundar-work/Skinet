@@ -16,7 +16,7 @@
         <div class="flex flex-col w-full h-full">
           <strong class="text-lg font-semibold">
             {{ method.shortName }} -
-            {{ method.price | currency : cartService.selectedCurrency() }}
+            {{ method.price | currency : "INR" }}
           </strong>
           <span class="text-sm text-gray-600">{{ method.description }}</span>
           <span class="text-sm text-gray-600">

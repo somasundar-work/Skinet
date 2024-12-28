@@ -7,6 +7,7 @@ export type CartType = {
   clientSecret?: string;
   paymentIntentId?: string;
   currency: string;
+  coupon?: Coupon;
 };
 
 export type CartItem = {
@@ -26,4 +27,13 @@ export class Cart implements CartType {
   clientSecret?: string;
   paymentIntentId?: string;
   currency: string = environment.appCurrency;
+  coupon?: Coupon;
 }
+
+export type Coupon = {
+  name: string;
+  amountOff?: number;
+  percentOff?: number;
+  promotionCode: string;
+  couponId: string;
+};
