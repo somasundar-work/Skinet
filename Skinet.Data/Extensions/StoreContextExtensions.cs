@@ -61,25 +61,27 @@ public static class StoreContextExtensions
     /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddStoreContext(
         this IServiceCollection services,
-        IConfiguration configuration,
-        IWebHostEnvironment environment
+        IConfiguration configuration
     )
     {
-        services.AddDbContext<StoreContext>(options =>
+        if (configuration["DBType"] == "PSQL")
         {
-            if (environment.IsDevelopment() || Constants.ContextConstants.DatabaseType == "PSQL")
+            services.AddDbContext<StoreContext, PostgresContext>(options =>
             {
                 options.UseNpgsql(
                     configuration.GetConnectionString(Constants.ContextConstants.DefaultConnection)
                 );
-            }
-            else
+            });
+        }
+        else
+        {
+            services.AddDbContext<StoreContext, SQLContext>(options =>
             {
                 options.UseSqlServer(
                     configuration.GetConnectionString(Constants.ContextConstants.DefaultConnection)
                 );
-            }
-        });
+            });
+        }
 
         return services;
     }

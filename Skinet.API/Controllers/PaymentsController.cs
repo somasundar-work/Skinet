@@ -17,11 +17,11 @@ namespace Skinet.API.Controllers
         IPaymentService paymentService,
         IUnitOfWork unit,
         ILogger<PaymentsController> logger,
-        IHubContext<NotificationHub> hubContext
+        IHubContext<NotificationHub> hubContext,
+        IConfiguration configuration
     ) : BaseApiController
     {
-        private readonly string _whSecret =
-            "whsec_3cab2afeb409c1edae08e08bce158d63654888ae12c6f2583becc2be40ed6f34";
+        private readonly string _whSecret = configuration["StripeSettings:whSecret"] ?? "";
 
         [Authorize]
         [HttpPost("{cartId}")]

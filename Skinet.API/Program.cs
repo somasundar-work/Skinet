@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddStoreContext(builder.Configuration, builder.Environment);
+builder.Services.AddStoreContext(builder.Configuration);
 builder.Services.AddRepository();
 builder.Services.AddCors();
 builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
