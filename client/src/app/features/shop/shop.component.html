@@ -1,4 +1,4 @@
-@if (products) {
+@if (products && products.data.length > 0) {
 <div class="flex flex-col gap-3">
   <div class="grid md:grid-cols-3 gap-4">
     <mat-paginator
@@ -60,7 +60,9 @@
     }
   </div>
 </div>
-
+} @else {
+<app-empty-state (action)="resetFilters()"></app-empty-state>
+}
 <mat-menu #sortMenu="matMenu">
   <mat-selection-list
     [multiple]="false"
@@ -76,4 +78,3 @@
     }
   </mat-selection-list>
 </mat-menu>
-}

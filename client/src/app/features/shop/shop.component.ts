@@ -16,6 +16,7 @@ import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
+import { EmptyStateComponent } from "./empty-state/empty-state.component";
 
 @Component({
   selector: 'app-shop',
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     MatMenuTrigger,
     MatPaginatorModule,
     FormsModule,
-  ],
+    EmptyStateComponent
+],
 })
 export class ShopComponent implements OnInit {
   private shopService = inject(ShopService);
@@ -100,6 +102,11 @@ export class ShopComponent implements OnInit {
 
   onSearchChange() {
     this.shopParams.pageNumber = 1;
+    this.getProducts();
+  }
+
+  resetFilters() {
+    this.shopParams = new ShopParams();
     this.getProducts();
   }
 }

@@ -1,0 +1,19 @@
+<div class="flex flex-col lg:flex-row mx-auto px-4 gap-4">
+  <div class="w-full">
+    <div class="empty-cart-container text-center py-8 mt-32">
+      <mat-icon class="empty-cart-icon text-gray-500">warning</mat-icon>
+      <h2 class="text-5xl font-bold mt-24">No Products Found</h2>
+      <p class="empty-cart-text text-xl font-medium text-gray-600 mt-4">
+        We couldn't find any products matching your filters.
+      </p>
+      <button
+        mat-raised-button
+        color="primary"
+        class="mt-5"
+        (click)="resetFilters()"
+      >
+        Reset Filters
+      </button>
+    </div>
+  </div>
+</div>
